@@ -69,11 +69,10 @@
                         ">
                 </div>
 
-                <!-- Optional Photo URL -->
+                <!-- Optional Photo URL (Always blank on edit) -->
                 <div>
                     <label for="photo_url" class="block text-sm font-medium text-gray-700">Or Photo URL (optional)</label>
-                    <input type="url" name="photo_url" id="photo_url"
-                        value="{{ old('photo_url', Str::startsWith($post->photo_path, ['http', 'https']) ? $post->photo_path : '') }}"
+                    <input type="url" name="photo_url" id="photo_url" value=""
                         class="mt-1 block w-full border border-gray-300 rounded-md shadow-sm p-2 focus:ring-blue-500 focus:border-blue-500">
                 </div>
 

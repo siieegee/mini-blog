@@ -12,13 +12,16 @@
         <div class="max-w-7xl mx-auto px-4 py-4 flex justify-between items-center">
             <h1 class="text-2xl font-bold tracking-wide">SKYBOUND <span class="text-blue-300">TALES</span></h1>
             <nav class="flex space-x-6 text-sm">
+                {{-- Home link removed --}}
+                {{-- 
                 <a href="{{ route('welcome') }}"
                     class="px-4 py-1 rounded-full border
                         @if(request()->routeIs('welcome')) border-white text-white
                         @else border-transparent text-white hover:text-blue-300 @endif">
                     Home
                 </a>
-                {{--
+                --}}
+                {{-- 
                 <a href="{{ route('about') }}"
                     class="px-4 py-1 rounded-full border
                         @if(request()->routeIs('about')) border-white text-white

@@ -124,11 +124,24 @@ class PostController extends Controller
         $validated = $request->validate([
             'title' => 'required|string|max:255',
             'content' => 'required|string',
+            'photo' => 'nullable|image|max:2048',
+            'photo_url' => 'nullable|url',
         ]);
 
-        $post->update($validated);
+        if ($request->hasFile('photo')) {
+            // Save new uploaded file
+            $photoPath = $request->file('photo')->store('post_photos', 'public');
+            $post->photo_path = $photoPath;
+        } elseif ($request->filled('photo_url')) {
+            // Save new URL
+            $post->photo_path = $request->input('photo_url');
+        }
 
-        return redirect()->route('posts.index')->with('success', 'Post updated!');
+        $post->title = $validated['title'];
+        $post->content = $validated['content'];
+        $post->save();
+
+        return redirect()->route('posts.show', $post)->with('success', 'Post updated!');
     }
 
     public function destroy(Post $post)

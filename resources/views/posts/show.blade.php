@@ -13,13 +13,18 @@
             @endif
 
             <div class="flex-1 flex flex-col justify-start">
-                <h1 class="text-3xl font-bold mb-4 text-gray-900">{{ $post->title }}</h1>
-                <p class="text-gray-800 whitespace-pre-line">{{ $post->content }}</p>
+                <!-- Title -->
+                <h1 class="text-3xl font-bold text-gray-900">{{ $post->title }}</h1>
 
-                <p class="mt-4 text-sm text-gray-600">
-                    Posted on {{ $post->created_at->format('F j, Y') }}
+                <!-- Author and Date -->
+                <p class="text-sm text-gray-600 mt-1 mb-4">
+                    Posted by <span class="font-medium text-gray-800">{{ $post->user->name }}</span> on {{ $post->created_at->format('F j, Y') }}
                 </p>
 
+                <!-- Content -->
+                <p class="text-gray-800 whitespace-pre-line">{{ $post->content }}</p>
+
+                <!-- Action Buttons -->
                 <div class="mt-6 flex space-x-4">
                     <a href="{{ route('dashboard') }}"
                         class="bg-gray-200 hover:bg-gray-300 text-gray-800 font-semibold px-4 py-2 rounded">

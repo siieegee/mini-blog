@@ -14,9 +14,11 @@
 
                 <!-- Title and Create Post Button -->
                 <div class="flex justify-between items-center mb-6">
-                    <h1 class="text-3xl font-bold text-white" style="text-shadow: 1px 2px 4px rgba(0,0,0,0.8);">Your Posts</h1>
+                    <h1 class="text-3xl font-bold text-white" style="text-shadow: 1px 2px 4px rgba(0,0,0,0.8);">
+                        Your Posts
+                    </h1>
                     <a href="{{ route('posts.create') }}"
-                       class="inline-block bg-blue-600 hover:bg-blue-700 text-white font-semibold py-2 px-4 rounded-lg shadow transition">
+                        class="inline-block bg-blue-600 hover:bg-blue-700 text-white font-semibold py-2 px-4 rounded-lg shadow transition">
                         + Create Post
                     </a>
                 </div>
@@ -26,8 +28,8 @@
                 @else
                     <div class="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 gap-6">
                         @foreach ($posts as $post)
-                            <article class="flex flex-col items-center">
-                                <a href="{{ route('posts.show', $post) }}" class="group">
+                            <article class="flex flex-col items-center text-center">
+                                <a href="{{ route('posts.show', $post) }}" class="group w-full">
                                     {{-- Photo Display --}}
                                     @if ($post->photo_path)
                                         @php
@@ -37,12 +39,12 @@
                                         @endphp
 
                                         <img src="{{ $imageSrc }}"
-                                             alt="Movie Poster"
-                                             class="w-[200px] h-[300px] object-cover rounded-md shadow-2xl group-hover:opacity-90 transition">
+                                            alt="Post Image"
+                                            class="w-[200px] h-[300px] object-cover rounded-md shadow-2xl group-hover:opacity-90 transition mx-auto">
                                     @endif
 
                                     {{-- Title below the image --}}
-                                    <h2 class="mt-3 text-xl font-semibold text-white text-center" style="text-shadow: 1px 2px 4px rgba(0,0,0,0.8);">
+                                    <h2 class="mt-3 text-xl font-semibold text-white" style="text-shadow: 1px 2px 4px rgba(0,0,0,0.8);">
                                         {{ $post->title }}
                                     </h2>
                                 </a>

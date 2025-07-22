@@ -5,6 +5,8 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use App\Models\Post;
+use Illuminate\Support\Str;
+use Illuminate\Support\Facades\Storage;
 
 use Illuminate\Routing\Controller as Controller;
 
@@ -76,17 +78,41 @@ class PostController extends Controller
         return view('posts.create');
     }
 
-    // Show a specific post
     public function show(Post $post)
     {
-        return view('posts.show', compact('post'));
+        $imageSrc = null;
+
+        if ($post->photo_path) {
+            $imageSrc = Str::startsWith($post->photo_path, ['http://', 'https://'])
+                ? $post->photo_path
+                : (Storage::disk('public')->exists($post->photo_path)
+                    ? Storage::url($post->photo_path)
+                    : null);
+        }
+
+        $bgImage = $imageSrc ?? 'https://images5.alphacoders.com/137/thumb-1920-1374565.png';
+
+        return view('posts.show', compact('post', 'imageSrc', 'bgImage'));
     }
 
 
     public function edit(Post $post)
     {
         $this->authorizePostOwner($post);
-        return view('posts.edit', compact('post'));
+
+        $imageSrc = null;
+
+        if ($post->photo_path) {
+            $imageSrc = Str::startsWith($post->photo_path, ['http://', 'https://'])
+                ? $post->photo_path
+                : (Storage::disk('public')->exists($post->photo_path)
+                    ? Storage::url($post->photo_path)
+                    : null);
+        }
+
+        $bgImage = $imageSrc ?? 'https://images5.alphacoders.com/137/thumb-1920-1374565.png';
+
+        return view('posts.edit', compact('post', 'imageSrc', 'bgImage'));
     }
 
     public function update(Request $request, Post $post)

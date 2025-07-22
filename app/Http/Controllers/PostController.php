@@ -26,25 +26,6 @@ class PostController extends Controller
         return view('dashboard', compact('posts'));
     }
 
-
-    public function feed(Request $request)
-    {
-        $user = Auth::user();
-
-        if ($request->query('mine') && $user) {
-            // Show only logged-in user’s posts if 'mine=1' is set and user is logged in
-            $posts = Post::where('user_id', $user->id)->latest()->paginate(20);
-            $filteringMine = true;
-        } else {
-            // Public feed - all posts
-            $posts = Post::latest()->paginate(20);
-            $filteringMine = false;
-        }
-
-        return view('feed', compact('posts', 'filteringMine', 'user'));
-    }
-
-
     public function store(Request $request)
     {
         $validated = $request->validate([

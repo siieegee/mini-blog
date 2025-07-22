@@ -29,9 +29,7 @@ Route::delete('/posts/{post}', [PostController::class, 'destroy'])->name('posts.
 ;
 Route::post('/posts', [PostController::class, 'store'])->name('posts.store');
 
-Route::get('/feed', [PostController::class, 'feed'])->name('posts.feed');
-
-
+Route::view('/about', 'about')->name('about');
 
 
 require __DIR__.'/auth.php';

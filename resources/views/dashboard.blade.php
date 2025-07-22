@@ -5,7 +5,6 @@
 
     @php
         $bgImage = asset('images/dashboard_bg.png');
-        // Assuming $user is passed from controller
     @endphp
 
     <div class="min-h-screen bg-cover bg-center" style="background-image: url('{{ $bgImage }}');">

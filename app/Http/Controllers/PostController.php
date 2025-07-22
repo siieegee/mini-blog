@@ -61,7 +61,7 @@ class PostController extends Controller
 
     public function show(Post $post)
     {
-        $post->load('user'); // Eager load the user relationship
+        $post->load('user');
 
         $imageSrc = null;
 

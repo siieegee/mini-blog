@@ -13,7 +13,13 @@
                     @else border-transparent text-white hover:text-blue-300 @endif">
                 Posts
             </a>
-            {{-- Add more links here if you want --}}
+
+            <a href="{{ route('about') }}"
+                class="px-4 py-1 rounded-full border
+                    @if(request()->routeIs('about')) border-white text-white
+                    @else border-transparent text-white hover:text-blue-300 @endif">
+                About Us
+            </a>
         </nav>
 
         <!-- User Actions -->

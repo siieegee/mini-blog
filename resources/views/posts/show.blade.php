@@ -8,8 +8,8 @@
             {{-- Optional small image preview --}}
             @if ($imageSrc)
                 <img src="{{ $imageSrc }}"
-                     alt="Post Image"
-                     class="w-[200px] h-[300px] object-cover rounded-md shadow">
+                    alt="Post Image"
+                    class="w-[200px] h-[300px] object-cover rounded-md shadow">
             @endif
 
             <div class="flex-1 flex flex-col justify-start">

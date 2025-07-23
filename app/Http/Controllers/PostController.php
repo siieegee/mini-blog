@@ -18,15 +18,18 @@ class PostController extends Controller
         $this->middleware('auth');
     }
 
-    // Display the dashboard with all posts
+    // Display a listing of posts
     public function index()
     {
-        // Fetch all posts, latest first
-        // $posts = Post::latest()->get();
         $posts = Post::get();
-
-        // Pass posts to dashboard view
+        
         return view('dashboard', compact('posts'));
+    }
+
+    // Show the form to create a new post
+    public function create()
+    {
+        return view('posts.create');
     }
 
     // Store a new post
@@ -42,10 +45,8 @@ class PostController extends Controller
         $photoPath = null;
 
         if ($request->hasFile('photo')) {
-            // Store the uploaded photo
             $photoPath = $request->file('photo')->store('post_photos', 'public');
         } elseif ($request->filled('photo_url')) {
-            // Use the URL directly
             $photoPath = $request->input('photo_url');
         }
 
@@ -57,12 +58,6 @@ class PostController extends Controller
         ]);
 
         return redirect()->route('dashboard')->with('success', 'Post created!');
-    }
-
-    // Show the form to create a new post
-    public function create()
-    {
-        return view('posts.create');
     }
 
     // Show a specific post
@@ -85,7 +80,7 @@ class PostController extends Controller
         return view('posts.show', compact('post', 'imageSrc', 'bgImage'));
     }
 
-    // Edit a post
+    // Show the form for editing a post
     public function edit(Post $post)
     {
         $this->authorizePostOwner($post);
@@ -118,11 +113,9 @@ class PostController extends Controller
         ]);
 
         if ($request->hasFile('photo')) {
-            // Save new uploaded file
             $photoPath = $request->file('photo')->store('post_photos', 'public');
             $post->photo_path = $photoPath;
         } elseif ($request->filled('photo_url')) {
-            // Save new URL
             $post->photo_path = $request->input('photo_url');
         }
 
@@ -133,6 +126,12 @@ class PostController extends Controller
         return redirect()->route('posts.show', $post)->with('success', 'Post updated!');
     }
 
+    // Show delete confirmation page
+    public function confirmDelete(Post $post)
+    {
+        return view('posts.delete', compact('post'));
+    }
+
     // Delete a post
     public function destroy(Post $post)
     {
@@ -141,12 +140,6 @@ class PostController extends Controller
         $post->delete();
 
         return redirect()->route('posts.index')->with('success', 'Post deleted!');
-    }
-
-    // Confirm delete a post
-    public function confirmDelete(Post $post)
-    {
-        return view('posts.delete', compact('post'));
     }
 
     // Authorize that the user is the owner of the post

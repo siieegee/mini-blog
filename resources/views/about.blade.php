@@ -10,7 +10,7 @@
                 <h1 class="text-3xl font-bold text-gray-900 mb-6">About Us</h1>
 
                 <!-- About Content -->
-                <div class="text-gray-800 space-y-4">
+                <div class="text-gray-800 space-y-1">
                     <p>
                         <strong>Skybound Tales</strong> is a haven for dreamers, storytellers, and Studio Ghibli lovers. Inspired by the breathtaking worlds of Hayao Miyazaki and Isao Takahata, this blog explores the stories, characters, and emotions that elevate animation to art.
                     </p> </br>

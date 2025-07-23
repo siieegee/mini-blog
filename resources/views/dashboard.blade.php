@@ -14,7 +14,7 @@
                 <!-- Title and Create Post Button -->
                 <div class="flex justify-between items-center mb-6">
                     <h1 class="text-3xl font-bold text-white" style="text-shadow: 1px 2px 4px rgba(0,0,0,0.8);">
-                        Your Posts
+                        Posts
                     </h1>
                     <a href="{{ route('posts.create') }}"
                         class="inline-block bg-blue-600 hover:bg-blue-700 text-white font-semibold py-2 px-4 rounded-lg shadow transition">

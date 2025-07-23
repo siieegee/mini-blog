@@ -7,7 +7,7 @@
 
             <div class="flex-1 flex flex-col justify-start">
                 <!-- Page Title -->
-                <h1 class="text-3xl font-bold text-gray-900">About Us</h1>
+                <h1 class="text-3xl font-bold text-gray-900 mb-6">About Us</h1>
 
                 <!-- About Content -->
                 <div class="text-gray-800 space-y-4">

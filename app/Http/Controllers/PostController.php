@@ -12,20 +12,24 @@ use Illuminate\Routing\Controller as Controller;
 
 class PostController extends Controller
 {
+    // Constructor to apply auth middleware
     public function __construct()
     {
         $this->middleware('auth');
     }
 
+    // Display the dashboard with all posts
     public function index()
     {
         // Fetch all posts, latest first
-        $posts = Post::latest()->get();
+        // $posts = Post::latest()->get();
+        $posts = Post::get();
 
         // Pass posts to dashboard view
         return view('dashboard', compact('posts'));
     }
 
+    // Store a new post
     public function store(Request $request)
     {
         $validated = $request->validate([
@@ -54,11 +58,14 @@ class PostController extends Controller
 
         return redirect()->route('dashboard')->with('success', 'Post created!');
     }
+
+    // Show the form to create a new post
     public function create()
     {
         return view('posts.create');
     }
 
+    // Show a specific post
     public function show(Post $post)
     {
         $post->load('user');
@@ -78,7 +85,7 @@ class PostController extends Controller
         return view('posts.show', compact('post', 'imageSrc', 'bgImage'));
     }
 
-
+    // Edit a post
     public function edit(Post $post)
     {
         $this->authorizePostOwner($post);
@@ -98,6 +105,7 @@ class PostController extends Controller
         return view('posts.edit', compact('post', 'imageSrc', 'bgImage'));
     }
 
+    // Update a post
     public function update(Request $request, Post $post)
     {
         $this->authorizePostOwner($post);
@@ -125,6 +133,7 @@ class PostController extends Controller
         return redirect()->route('posts.show', $post)->with('success', 'Post updated!');
     }
 
+    // Delete a post
     public function destroy(Post $post)
     {
         $this->authorizePostOwner($post);
@@ -134,6 +143,13 @@ class PostController extends Controller
         return redirect()->route('posts.index')->with('success', 'Post deleted!');
     }
 
+    // Confirm delete a post
+    public function confirmDelete(Post $post)
+    {
+        return view('posts.delete', compact('post'));
+    }
+
+    // Authorize that the user is the owner of the post
     private function authorizePostOwner(Post $post)
     {
         if ($post->user_id !== Auth::id()) {

@@ -30,6 +30,6 @@ Route::delete('/posts/{post}', [PostController::class, 'destroy'])->name('posts.
 Route::post('/posts', [PostController::class, 'store'])->name('posts.store');
 
 Route::view('/about', 'about')->name('about');
-
+Route::get('/posts/{post}/delete', [PostController::class, 'confirmDelete'])->name('posts.delete');
 
 require __DIR__.'/auth.php';

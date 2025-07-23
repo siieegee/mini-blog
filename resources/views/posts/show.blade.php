@@ -37,15 +37,10 @@
                             Edit
                         </a>
 
-                        <form action="{{ route('posts.destroy', $post) }}" method="POST"
-                            onsubmit="return confirm('Are you sure you want to delete this post?')">
-                            @csrf
-                            @method('DELETE')
-                            <button type="submit"
-                                    class="bg-red-500 hover:bg-red-600 text-white font-semibold px-4 py-2 rounded">
-                                Delete
-                            </button>
-                        </form>
+                        <a href="{{ route('posts.delete', $post) }}"
+                            class="bg-red-500 hover:bg-red-600 text-white font-semibold px-4 py-2 rounded">
+                            Delete
+                        </a>
                     @endif
                 </div>
             </div>

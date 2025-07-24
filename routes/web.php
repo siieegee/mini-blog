@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\PostController;
+use App\Http\Controllers\CommentController;
 use Illuminate\Support\Facades\Route;
 
 // Public Routes
@@ -20,8 +21,10 @@ Route::middleware(['auth', 'verified'])->group(function () {
     Route::get('/posts/{post}/delete', [PostController::class, 'confirmDelete'])->name('posts.delete');
 
     // Resource routes for posts (includes index, create, store, show, edit, update, destroy)
-    Route::resource('posts', PostController::class)->except(['index']); 
-    // index route excluded because it's handled by dashboard above
+    Route::resource('posts', PostController::class)->except(['index']);
+
+     // Comment route
+    Route::post('/posts/{post}/comments', [CommentController::class, 'store'])->name('comments.store');
 
     // Profile routes
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');

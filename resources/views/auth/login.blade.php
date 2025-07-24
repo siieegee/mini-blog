@@ -1,4 +1,5 @@
 <x-guest-layout>
+
     <!-- Session Status -->
     <x-auth-session-status class="mb-4" :status="session('status')" />
 
@@ -15,12 +16,7 @@
         <!-- Password -->
         <div class="mt-4">
             <x-input-label for="password" :value="__('Password')" class="text-black" />
-
-            <x-text-input id="password" class="block mt-1 w-full"
-                            type="password"
-                            name="password"
-                            required autocomplete="current-password" />
-
+            <x-text-input id="password" class="block mt-1 w-full" type="password" name="password" required autocomplete="current-password" />
             <x-input-error :messages="$errors->get('password')" class="mt-2" />
         </div>
 
@@ -32,6 +28,7 @@
             </label>
         </div>
 
+        <!-- Buttons -->
         <div class="flex items-center justify-end mt-4">
             @if (Route::has('password.request'))
                 <a class="underline text-sm text-gray-600 hover:text-gray-900 rounded-md focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500" href="{{ route('password.request') }}">
@@ -44,4 +41,10 @@
             </x-primary-button>
         </div>
     </form>
+
+    <!-- Not yet registered? -->
+    <div class="mt-6 text-center text-sm text-gray-600">
+        Not yet registered?
+        <a href="{{ route('register') }}" class="text-blue-600 hover:underline font-medium">Create an account</a>
+    </div>
 </x-guest-layout>

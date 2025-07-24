@@ -38,11 +38,14 @@
     npm install
 
 3. **Set up environment variables**
+    ```bash
     cp .env.example .env
     php artisan key:generate
 
 4. **Set up the database**
 - Create a MySQL database (e.g., skybound_blog)
+    ```bash
+    CREATE DATABASE skybound_blog;
 - Update your .env file:
     ```bash
     DB_DATABASE=skybound_blog

@@ -11,16 +11,19 @@
                     class="w-[200px] h-[300px] object-cover rounded-md shadow">
             @endif
             <div class="flex-1 flex flex-col justify-start">
-                <h1 class="text-3xl font-bold text-gray-900">{{ $post->title }}</h1>
-                <p class="text-sm text-gray-600 mt-1 mb-4">
-                    Posted by <span class="font-medium text-gray-800">{{ $post->user->name }}</span>
-                    on {{ $post->created_at->format('F j, Y') }}
-                </p>
-                <p class="text-gray-800 whitespace-pre-line">{{ $post->content }}</p>
+                <div class="bg-white bg-opacity-60 backdrop-blur-sm rounded-md p-4">
+                    <h1 class="text-3xl font-bold text-gray-900">{{ $post->title }}</h1>
+                    <p class="text-sm text-gray-600 mt-1 mb-4">
+                        Posted by <span class="font-medium text-gray-800">{{ $post->user->name }}</span>
+                        on {{ $post->created_at->format('F j, Y') }}
+                    </p>
+                    <p class="text-gray-800 whitespace-pre-line">{{ $post->content }}</p>
+                </div>
+
                 <div class="mt-6 flex space-x-4">
                     <a href="{{ route('dashboard') }}"
-                        class="bg-gray-200 hover:bg-gray-300 text-gray-800 font-semibold px-4 py-2 rounded">
-                        Back to Dashboard
+                        class="bg-blue-800 hover:bg-blue-700 text-white font-semibold px-4 py-2 rounded transition">
+                        Back to Posts
                     </a>
                     @if(auth()->check() && auth()->id() === $post->user_id)
                         <a href="{{ route('posts.edit', $post) }}"
@@ -35,6 +38,7 @@
                 </div>
             </div>
         </div>
+
         
         <!-- Comments Section -->
         <div class="bg-white bg-opacity-60 backdrop-blur-sm rounded-lg shadow-lg max-w-4xl w-full p-6 border border-gray-300 mt-8">
@@ -63,7 +67,10 @@
                     <textarea name="body" id="body" rows="3" required
                         placeholder="Write your comment here..."
                         class="w-full mt-1 p-3 text-xs border border-gray-300 rounded-lg shadow-sm focus:ring-blue-500 focus:border-blue-500 bg-white bg-opacity-95"></textarea>
-                    <x-primary-button class="mt-3">Post Comment</x-primary-button>
+                    <button type="submit"
+                        class="mt-3 bg-blue-800 hover:bg-blue-700 text-white font-semibold px-4 py-2 rounded transition focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500">
+                        Post Comment
+                    </button>
                 </form>
             @else
                 <p class="mt-4 text-gray-800 font-medium">

@@ -3,6 +3,7 @@
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\PostController;
 use App\Http\Controllers\CommentController;
+use App\Http\Controllers\AdminController;
 use Illuminate\Support\Facades\Route;
 
 // Public Routes
@@ -23,7 +24,7 @@ Route::middleware(['auth', 'verified'])->group(function () {
     // Resource routes for posts (includes index, create, store, show, edit, update, destroy)
     Route::resource('posts', PostController::class)->except(['index']);
 
-     // Comment route
+    // Comment route
     Route::post('/posts/{post}/comments', [CommentController::class, 'store'])->name('comments.store');
 
     // Profile routes
@@ -32,12 +33,21 @@ Route::middleware(['auth', 'verified'])->group(function () {
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
 });
 
-require __DIR__.'/auth.php';
+Route::middleware(['auth', 'admin'])->group(function () {
+    // Admin Dashboard
+    Route::get('/admin/dashboard', [AdminController::class, 'index']);
 
-/*
-Route::get('/posts/{post}', [PostController::class, 'show'])->name('posts.show');
-Route::get('/posts/create', [PostController::class, 'create'])->name('posts.create');
-Route::get('/posts/{post}/edit', [PostController::class, 'edit'])->name('posts.edit');
-Route::delete('/posts/{post}', [PostController::class, 'destroy'])->name('posts.destroy');
-Route::post('/posts', [PostController::class, 'store'])->name('posts.store');
-*/
+    // Admin User Management
+    Route::get('/admin/users', [AdminController::class, 'users'])->name('admin.users');
+    Route::put('/admin/users/{id}', [AdminController::class, 'updateUser'])->name('admin.users.update');
+    Route::delete('/admin/users/{id}', [AdminController::class, 'destroyUser'])->name('admin.users.destroy');
+
+    // Admin Post Management
+    Route::get('/admin/posts', [AdminController::class, 'posts'])->name('admin.posts');
+    Route::get('/admin/posts/{post}/edit', [AdminController::class, 'editPost'])->name('admin.posts.edit');
+    Route::get('/admin/posts/{post}/delete', [AdminController::class, 'confirmDelete'])->name('admin.posts.delete');
+    Route::put('/admin/posts/{id}', [AdminController::class, 'updatePost'])->name('admin.posts.update');
+    Route::delete('/admin/posts/{id}', [AdminController::class, 'destroyPost'])->name('admin.posts.destroy');
+});
+
+require __DIR__ . '/auth.php';

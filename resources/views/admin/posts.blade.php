@@ -6,7 +6,6 @@
             <div :class="{'block': open, 'hidden': !open}" class="hidden md:flex space-x-4">
                 <a href="{{ route('admin.users') }}" class="text-sm font-bold text-[#1b263b] hover:text-white">Users</a>
                 <a href="{{ route('admin.posts') }}" class="text-sm font-bold text-[#1b263b] hover:text-white">Posts</a>
-                <a href="#" class="text-sm font-bold text-[#1b263b] hover:text-white">Settings</a>
             </div>
         </div>
     </nav>
@@ -27,21 +26,21 @@
                 @if ($posts->isEmpty())
                     <p class="text-center">No posts found.</p>
                 @else
-                    <table class="min-w-full text-left">
+                    <table class="min-w-full">
                         <thead>
                             <tr class="border-b text-sm text-[#e0e1dd]/80">
-                                <th class="py-2">Image</th>
-                                <th class="py-2">Title</th>
-                                <th class="py-2">Author</th>
-                                <th class="py-2">Created</th>
-                                <th class="py-2">Actions</th>
+                                <th class="py-2 text-center">Image</th>
+                                <th class="py-2 text-center">Title</th>
+                                <th class="py-2 text-center">Author</th>
+                                <th class="py-2 text-center">Created</th>
+                                <th class="py-2 text-center">Actions</th>
                             </tr>
                         </thead>
                         <tbody>
                             @foreach ($posts as $post)
                                 <tr class="border-b hover:bg-[#2e3b52]">
                                     <!-- Image -->
-                                    <td class="py-1 align-top">
+                                    <td class="py-1 text-center">
                                         @php
                                             $photo = $post->photo_path;
                                             $isUrl = Str::startsWith($photo, ['http://', 'https://']);
@@ -50,30 +49,30 @@
                                         @if ($photo)
                                             <img src="{{ $isUrl ? $photo : asset('storage/' . $photo) }}"
                                                  alt="Post Image"
-                                                 class="w-16 h-16 object-cover rounded">
+                                                 class="w-16 h-20 object-cover rounded mx-auto">
                                         @else
                                             <span class="text-sm text-gray-400 italic">No image</span>
                                         @endif
                                     </td>
 
                                     <!-- Title -->
-                                    <td class="align-top py-1">
+                                    <td class="py-1 text-center">
                                         {{ $post->title }}
                                     </td>
 
                                     <!-- Author -->
-                                    <td class="align-top py-1">
+                                    <td class="py-1 text-center">
                                         {{ $post->user->name ?? 'Unknown' }}
                                     </td>
 
                                     <!-- Created -->
-                                    <td class="align-top py-1">
+                                    <td class="py-1 text-center">
                                         {{ $post->created_at->format('M d, Y') }}
                                     </td>
 
                                     <!-- Actions -->
-                                    <td class="py-1 align-top">
-                                        <div class="flex gap-2">
+                                    <td class="py-1 text-center">
+                                        <div class="flex gap-2 justify-center">
                                             <a href="{{ route('admin.posts.edit', $post) }}"
                                                 class="bg-yellow-400 hover:bg-yellow-500 text-white font-semibold px-4 py-2 rounded text-sm">
                                                 Edit

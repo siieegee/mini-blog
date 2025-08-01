@@ -8,7 +8,6 @@
             <div :class="{'block': open, 'hidden': !open}" class="hidden md:flex space-x-4">
                 <a href="{{ route('admin.users') }}" class="text-sm font-bold text-[#1b263b] hover:text-white">Users</a>
                 <a href="{{ route('admin.posts') }}" class="text-sm font-bold text-[#1b263b] hover:text-white">Posts</a>
-                <a href="#" class="text-sm font-bold text-[#1b263b] hover:text-white">Settings</a>
             </div>
         </div>
     </nav>

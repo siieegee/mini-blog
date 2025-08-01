@@ -38,15 +38,17 @@ Route::middleware(['auth', 'admin'])->group(function () {
     Route::get('/admin/dashboard', [AdminController::class, 'index']);
 
     // Admin User Management
-    Route::get('/admin/users', [AdminController::class, 'users'])->name('admin.users');
-    Route::put('/admin/users/{id}', [AdminController::class, 'updateUser'])->name('admin.users.update');
-    Route::delete('/admin/users/{id}', [AdminController::class, 'destroyUser'])->name('admin.users.destroy');
+    Route::get('/users', [AdminController::class, 'users'])->name('admin.users');
+    Route::get('/users/{id}/edit', [AdminController::class, 'editUser'])->name('admin.users.edit');
+    Route::put('/users/{id}', [AdminController::class, 'updateUser'])->name('admin.users.update');
+    Route::get('/users/{id}/delete', [AdminController::class, 'confirmDeleteUser'])->name('admin.users.delete');
+    Route::delete('/users/{id}', [AdminController::class, 'destroyUser'])->name('admin.users.destroy');
 
     // Admin Post Management
     Route::get('/admin/posts', [AdminController::class, 'posts'])->name('admin.posts');
     Route::get('/admin/posts/{post}/edit', [AdminController::class, 'editPost'])->name('admin.posts.edit');
-    Route::get('/admin/posts/{post}/delete', [AdminController::class, 'confirmDelete'])->name('admin.posts.delete');
     Route::put('/admin/posts/{id}', [AdminController::class, 'updatePost'])->name('admin.posts.update');
+    Route::get('/admin/posts/{post}/delete', [AdminController::class, 'confirmDelete'])->name('admin.posts.delete');
     Route::delete('/admin/posts/{id}', [AdminController::class, 'destroyPost'])->name('admin.posts.destroy');
 });
 

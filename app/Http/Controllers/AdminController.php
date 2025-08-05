@@ -25,10 +25,14 @@ class AdminController extends Controller
         $postCount = Post::count();
         $pendingReports = Report::where('status', 'pending')->count();
 
-        $recentPosts = Post::latest()->take(10)->with('user')->get();
+        $recentPosts = Post::whereHas('reports')
+                        ->with('user')
+                        ->latest()
+                        ->take(5)
+                        ->get();
 
         return view('admin.dashboard', compact('userCount', 'postCount', 'pendingReports', 'recentPosts'));
-}
+    }
 
     // ================================
     // User Management

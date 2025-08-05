@@ -53,6 +53,11 @@ Route::middleware(['auth', 'admin'])->group(function () {
     Route::put('/admin/posts/{id}', [AdminController::class, 'updatePost'])->name('admin.posts.update');
     Route::get('/admin/posts/{post}/delete', [AdminController::class, 'confirmDelete'])->name('admin.posts.delete');
     Route::delete('/admin/posts/{id}', [AdminController::class, 'destroyPost'])->name('admin.posts.destroy');
+
+    // Admin Report Actions
+    Route::get('/admin/reports/{post}', [AdminController::class, 'viewReports'])->name('reports.view');
+    Route::post('/admin/reports/{post}/accept', [AdminController::class, 'acceptReport'])->name('reports.accept');
+    Route::post('/admin/reports/{post}/reject', [AdminController::class, 'rejectReport'])->name('reports.reject');
 });
 
 require __DIR__ . '/auth.php';

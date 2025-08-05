@@ -22,39 +22,67 @@
                 </div>
             </div>
 
-            <!-- Recent Posts Table -->
-            <div class="bg-[#1b263b] text-[#e0e1dd] shadow rounded-lg p-6 mt-8">
-                <h2 class="text-xl font-semibold mb-4">Recent Posts</h2>
+            <!-- Recent Reported Posts Table -->
+            <div class="bg-[#1b263b] text-[#e0e1dd] shadow rounded-lg p-6 mt-8" style="background-color: #1b263b !important; opacity: 1;">
+                <h2 class="text-xl font-semibold mb-4">Recent Reported Posts</h2>
                 <div class="overflow-x-auto">
-                    <table class="min-w-full divide-y divide-gray-600">
+                    <table class="min-w-full divide-y divide-blue-600">
                         <thead>
                             <tr class="text-left text-sm font-semibold">
-                                <th class="px-4 py-2">#</th>
-                                <th class="px-4 py-2">Title</th>
-                                <th class="px-4 py-2">Author</th>
-                                <th class="px-4 py-2">Created</th>
-                                <th class="px-4 py-2">Actions</th>
+                                <th class="px-6 py-3">#</th>
+                                <th class="px-6 py-3">Title</th>
+                                <th class="px-6 py-3">Author</th>
+                                <th class="px-6 py-3">Created</th>
+                                <th class="px-6 py-3">Status</th>
+                                <th class="px-6 py-3 text-center">Actions</th>
                             </tr>
                         </thead>
-                        <tbody class="divide-y divide-gray-700">
+                        <tbody class="divide-y divide-blue-700">
                             @forelse ($recentPosts as $index => $post)
+                            <tr class="border-b border-blue-500">
+                                @php
+                                    $reportStatus = $post->reports->pluck('status')->unique()->implode(', ');
+                                @endphp
                                 <tr>
-                                    <td class="px-4 py-2">{{ $index + 1 }}</td>
-                                    <td class="px-4 py-2">{{ $post->title }}</td>
-                                    <td class="px-4 py-2">{{ $post->user->name ?? 'N/A' }}</td>
-                                    <td class="px-4 py-2">{{ $post->created_at->diffForHumans() }}</td>
-                                    <td class="px-4 py-2 space-x-2">
-                                        <a href="{{ route('posts.edit', $post) }}" class="text-blue-400 hover:underline">Edit</a>
-                                        <form action="{{ route('posts.destroy', $post) }}" method="POST" class="inline-block" onsubmit="return confirm('Delete this post?')">
-                                            @csrf
-                                            @method('DELETE')
-                                            <button type="submit" class="text-red-400 hover:underline">Delete</button>
-                                        </form>
+                                    <td class="px-6 py-3">{{ $index + 1 }}</td>
+                                    <td class="px-6 py-3">{{ $post->title }}</td>
+                                    <td class="px-6 py-3">{{ $post->user->name ?? 'N/A' }}</td>
+                                    <td class="px-6 py-3">{{ $post->created_at->diffForHumans() }}</td>
+                                    <td class="px-6 py-3 capitalize">{{ $reportStatus ?: 'N/A' }}</td>
+                                    <td class="px-6 py-3 text-center">
+                                        <div class="flex gap-2 justify-center">
+                                            <!-- View Post -->
+                                            <a href="{{ route('posts.show', $post) }}"
+                                                class="bg-gray-500 hover:bg-gray-600 text-white text-sm font-medium px-4 py-2 rounded transition">
+                                                View
+                                            </a>
+
+                                            <!-- Accept -->
+                                            <form action="{{ route('reports.accept', $post->id) }}" method="POST">
+                                                @csrf
+                                                <button type="submit"
+                                                    class="text-white text-sm font-medium px-4 py-2 rounded transition"
+                                                    style="background-color: #16a34a !important; border: none;"
+                                                    onmouseover="this.style.backgroundColor='#15803d'"
+                                                    onmouseout="this.style.backgroundColor='#16a34a'">
+                                                    Accept
+                                                </button>
+                                            </form>
+
+                                            <!-- Reject -->
+                                            <form action="{{ route('reports.reject', $post->id) }}" method="POST">
+                                                @csrf
+                                                <button type="submit"
+                                                    class="bg-red-600 hover:bg-red-700 text-white text-sm font-medium px-4 py-2 rounded transition">
+                                                    Reject
+                                                </button>
+                                            </form>
+                                        </div>
                                     </td>
                                 </tr>
                             @empty
                                 <tr>
-                                    <td colspan="5" class="px-4 py-2 text-center">No recent posts found.</td>
+                                    <td colspan="6" class="px-6 py-4 text-center">No reported posts found.</td>
                                 </tr>
                             @endforelse
                         </tbody>

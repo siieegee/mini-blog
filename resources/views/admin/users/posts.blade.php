@@ -1,6 +1,15 @@
-@extends('layouts.admin_app')
+<x-app-layout>
+    <nav x-data="{ open: false }" class="shadow-md" style="background-color: #669bbc;">
+        <div class="max-w-7xl mx-auto px-4 py-4 flex justify-between items-center">
+            <h1 class="text-xl font-bold text-[#1b263b]">Admin Dashboard</h1>
+            <button @click="open = !open" class="md:hidden text-white">☰</button>
+            <div :class="{'block': open, 'hidden': !open}" class="hidden md:flex space-x-4">
+                <a href="{{ route('admin.users') }}" class="text-sm font-bold text-[#1b263b] hover:text-white">Users</a>
+                <a href="{{ route('admin.posts') }}" class="text-sm font-bold text-[#1b263b] hover:text-white">Posts</a>
+            </div>
+        </div>
+    </nav>
 
-@section('content')
     <div class="min-h-screen" style="background-color: #669bbc; color: #e0e1dd;">
         <main class="max-w-7xl mx-auto p-6">
             <!-- Admin Widgets -->
@@ -82,4 +91,4 @@
             </div>
         </main>
     </div>
-@endsection
+</x-app-layout>

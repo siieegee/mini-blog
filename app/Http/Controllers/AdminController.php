@@ -4,8 +4,10 @@ namespace App\Http\Controllers;
 
 use App\Models\User;
 use App\Models\Post;
+use App\Models\Report;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use App\Http\Controllers\ReportController;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Hash;
 
@@ -19,16 +21,14 @@ class AdminController extends Controller
 
     public function index()
     {
-        $users = User::latest()->take(5)->get();
+        $userCount = User::count();
         $postCount = Post::count();
+        $pendingReports = Report::where('status', 'pending')->count();
 
-        return view('admin.dashboard', [
-            'userCount' => $users->count(),
-            'postCount' => $postCount,
-            'pendingReports' => 0,
-            'users' => $users,
-        ]);
-    }
+        $recentPosts = Post::latest()->take(10)->with('user')->get();
+
+        return view('admin.dashboard', compact('userCount', 'postCount', 'pendingReports', 'recentPosts'));
+}
 
     // ================================
     // User Management

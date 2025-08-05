@@ -27,6 +27,9 @@ Route::middleware(['auth', 'verified'])->group(function () {
     // Comment route
     Route::post('/posts/{post}/comments', [CommentController::class, 'store'])->name('comments.store');
 
+    // Report post route
+    Route::post('/posts/{post}/report', [App\Http\Controllers\ReportController::class, 'store'])->name('reports.store');
+
     // Profile routes
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
     Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');

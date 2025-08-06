@@ -1,7 +1,7 @@
 <nav class="bg-gradient-to-r from-gray-900 to-blue-900 text-white shadow-md">
     <div class="max-w-7xl mx-auto px-4 py-4 flex justify-between items-center">
         <!-- Logo / Site Title -->
-        <a href="{{ route('dashboard') }}" class="text-2xl font-bold tracking-wide select-none">
+        <a href="{{ route('admin.dashboard') }}" class="text-2xl font-bold tracking-wide select-none">
             SKYBOUND <span class="text-blue-300">TALES</span>
         </a>
 

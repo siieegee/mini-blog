@@ -10,6 +10,10 @@ use Illuminate\Support\Facades\Auth;
 use App\Http\Controllers\ReportController;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Hash;
+use Illuminate\Support\Str;
+use Illuminate\Support\Facades\Storage;
+use Illuminate\Support\Facades\Notification;
+use App\Notifications\PostHiddenNotification;
 
 class AdminController extends Controller
 {
@@ -19,20 +23,22 @@ class AdminController extends Controller
         $this->middleware(['auth', 'admin']);
     }
 
-    public function index()
-    {
-        $userCount = User::count();
-        $postCount = Post::count();
-        $pendingReports = Report::where('status', 'pending')->count();
+public function index()
+{
+    $userCount = User::count();
+    $postCount = Post::count();
+    $pendingReports = Report::where('status', 'Pending')->count();
 
-        $recentPosts = Post::whereHas('reports')
-                        ->with('user')
-                        ->latest()
-                        ->take(5)
-                        ->get();
+    $reportedPostIds = Report::select('post_id')->distinct()->pluck('post_id');
 
-        return view('admin.dashboard', compact('userCount', 'postCount', 'pendingReports', 'recentPosts'));
-    }
+    $recentPosts = Post::withTrashed()
+    ->whereHas('reports')
+    ->with(['reports', 'user'])
+    ->latest()
+    ->get();
+
+    return view('admin.dashboard', compact('userCount', 'postCount', 'pendingReports', 'recentPosts'));
+}
 
     // ================================
     // User Management
@@ -79,8 +85,6 @@ class AdminController extends Controller
 
         return redirect()->route('admin.users.edit', $user->id)->with('success', 'User updated successfully.');
     }
-
-
 
     // Confirm delete user
     public function confirmDeleteUser($id)
@@ -154,5 +158,34 @@ class AdminController extends Controller
     public function confirmDelete(Post $post)
     {
         return view('admin.posts.delete', compact('post'));
+    }
+
+    // Report Management
+    public function viewReports(Post $post)
+    {
+        $post->load('user');
+
+        $imageSrc = null;
+
+        if ($post->photo_path) {
+            $imageSrc = Str::startsWith($post->photo_path, ['http://', 'https://'])
+                ? $post->photo_path
+                : (Storage::disk('public')->exists($post->photo_path)
+                    ? Storage::url($post->photo_path)
+                    : null);
+        }
+
+        $bgImage = $imageSrc ?? 'https://images5.alphacoders.com/137/thumb-1920-1374565.png';
+
+        return view('admin.reports.show', compact('post', 'imageSrc', 'bgImage'));
+    }
+
+    public function acceptReportView()
+    {
+        $userCount = User::count();
+        $postCount = Post::count();
+        $pendingReports = Report::where('status', 'Pending')->count();
+
+        return view('admin.reports.accept', compact('userCount', 'postCount', 'pendingReports'));
     }
 }

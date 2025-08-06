@@ -4,6 +4,7 @@ use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\PostController;
 use App\Http\Controllers\CommentController;
 use App\Http\Controllers\AdminController;
+use App\Http\Controllers\ReportController;
 use Illuminate\Support\Facades\Route;
 
 // Public Routes
@@ -38,7 +39,7 @@ Route::middleware(['auth', 'verified'])->group(function () {
 
 Route::middleware(['auth', 'admin'])->group(function () {
     // Admin Dashboard
-    Route::get('/admin/dashboard', [AdminController::class, 'index']);
+    Route::get('/admin/dashboard', [AdminController::class, 'index'])->name('admin.dashboard');
 
     // Admin User Management
     Route::get('/users', [AdminController::class, 'users'])->name('admin.users');
@@ -55,9 +56,13 @@ Route::middleware(['auth', 'admin'])->group(function () {
     Route::delete('/admin/posts/{id}', [AdminController::class, 'destroyPost'])->name('admin.posts.destroy');
 
     // Admin Report Actions
-    Route::get('/admin/reports/{post}', [AdminController::class, 'viewReports'])->name('reports.view');
-    Route::post('/admin/reports/{post}/accept', [AdminController::class, 'acceptReport'])->name('reports.accept');
-    Route::post('/admin/reports/{post}/reject', [AdminController::class, 'rejectReport'])->name('reports.reject');
+    Route::get('/admin/reports/{post}', [AdminController::class, 'viewReports'])->name('admin.reports.show');
+    Route::get('/admin/reports/accept', [AdminController::class, 'acceptReportView'])->name('admin.reports.acceptView');
+
+    // Post hiding and notification
+    Route::post('/admin/posts/{post}/hide', [ReportController::class, 'hidePost'])->name('admin.reports.hide');
+    Route::post('/admin/posts/{post}/notify', [ReportController::class, 'notifyAuthor'])->name('admin.reports.notify');
+    Route::post('/admin/reports/{post}/reject', [ReportController::class, 'rejectReport'])->name('admin.reports.reject');
 });
 
 require __DIR__ . '/auth.php';

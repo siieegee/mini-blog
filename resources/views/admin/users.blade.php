@@ -26,7 +26,7 @@
                                 <th class="py-2">Name</th>
                                 <th class="py-2">Email</th>
                                 <th class="py-2">Date Registered</th>
-                                <th class="py-2">Actions</th>
+                                <th class="py-2 text-center">Actions</th>
                             </tr>
                         </thead>
                         <tbody>

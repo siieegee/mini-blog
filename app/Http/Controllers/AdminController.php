@@ -90,7 +90,7 @@ public function index()
     public function confirmDeleteUser($id)
     {
         $user = User::findOrFail($id);
-        return view('admin.users.confirm-delete', compact('user'));
+        return view('admin.users.delete', compact('user'));
     }
 
     // Delete a user

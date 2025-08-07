@@ -6,11 +6,11 @@
         <div class="rounded-lg shadow-lg max-w-4xl w-full p-8 flex space-x-6 items-start"
              style="background-color: #1b263b;">
             <div class="flex-1 text-center text-[#e0e1dd]">
-                <h2 class="text-2xl font-bold mb-4">Delete Post</h2>
+                <h2 class="text-2xl font-bold mb-4">Delete User</h2>
 
                 <p class="mb-6">
-                    Are you sure you want to delete the post<br>
-                    <strong>"{{ $post->title }}"</strong>?
+                    Are you sure you want to delete the user<br>
+                    <strong>"{{ $user->name }}"</strong>?
                 </p>
 
                 <div class="flex justify-center space-x-4">
@@ -19,7 +19,7 @@
                        Cancel
                     </a>
 
-                    <form method="POST" action="{{ route('admin.users.destroy', $post->id) }}">
+                    <form method="POST" action="{{ route('admin.users.destroy', $user->id) }}">
                         @csrf
                         @method('DELETE')
                         <button type="submit"

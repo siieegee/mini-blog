@@ -4,7 +4,7 @@
         style="background-color: #669bbc; color: #e0e1dd;"
     >
         <div class="rounded-lg shadow-lg max-w-4xl w-full p-8 flex space-x-6 items-start"
-             style="background-color: #1b263b;">
+            style="background-color: #1b263b;">
             <div class="flex-1 text-center text-[#e0e1dd]">
                 <h2 class="text-2xl font-bold mb-4">Delete User</h2>
 
@@ -14,9 +14,9 @@
                 </p>
 
                 <div class="flex justify-center space-x-4">
-                    <a href="{{ route('admin.users') }}" 
-                       class="px-4 py-2 bg-gray-300 text-gray-800 rounded hover:bg-gray-400">
-                       Cancel
+                    <a href="{{ route('admin.users') }}"
+                        class="px-4 py-2 bg-gray-300 text-gray-800 rounded hover:bg-gray-400">
+                        Cancel
                     </a>
 
                     <form method="POST" action="{{ route('admin.users.destroy', $user->id) }}">

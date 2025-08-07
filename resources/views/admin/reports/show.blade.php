@@ -17,8 +17,8 @@
         <div class="bg-white bg-opacity-60 backdrop-blur-sm rounded-lg shadow-lg max-w-4xl w-full p-8 border border-gray-300 flex space-x-6 items-start mt-6">
             @if ($imageSrc)
                 <img src="{{ $imageSrc }}"
-                     alt="Post Image"
-                     class="w-[200px] h-[300px] object-cover rounded-md shadow">
+                    alt="Post Image"
+                    class="w-[200px] h-[300px] object-cover rounded-md shadow">
             @endif
             <div class="flex-1 flex flex-col justify-start">
                 <div class="bg-white bg-opacity-60 backdrop-blur-sm rounded-md p-4">
@@ -32,7 +32,7 @@
 
                 <div class="mt-6 flex flex-wrap gap-4">
                     <a href="{{ route('admin.dashboard') }}"
-                       class="bg-blue-800 hover:bg-blue-700 text-white font-semibold px-4 py-2 rounded transition">
+                        class="bg-blue-800 hover:bg-blue-700 text-white font-semibold px-4 py-2 rounded transition">
                         Back to Dashboard
                     </a>
 

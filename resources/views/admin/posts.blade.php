@@ -39,8 +39,8 @@
 
                                         @if ($photo)
                                             <img src="{{ $isUrl ? $photo : asset('storage/' . $photo) }}"
-                                                 alt="Post Image"
-                                                 class="w-16 h-20 object-cover rounded mx-auto">
+                                                alt="Post Image"
+                                                class="w-16 h-20 object-cover rounded mx-auto">
                                         @else
                                             <span class="text-sm text-gray-400 italic">No image</span>
                                         @endif

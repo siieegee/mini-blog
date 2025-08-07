@@ -27,7 +27,7 @@
             @auth
                 <!-- Dropdown Trigger -->
                 <div x-data="{ open: false }" class="relative">
-                    <button @click="open = !open" 
+                    <button @click="open = !open"
                         class="inline-flex items-center px-3 py-2 border border-transparent text-sm font-medium rounded-md text-white bg-blue-800 hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500 transition">
                         {{ Auth::user()->name }}
                         <svg class="ml-1 h-4 w-4" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
